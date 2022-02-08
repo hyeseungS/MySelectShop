@@ -13,8 +13,6 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController // JSON으로 데이터를 주고받음을 선언합니다.
 public class ProductController {
 
@@ -29,6 +27,7 @@ public class ProductController {
     @PostMapping("/api/products")
     public Product createProduct(@RequestBody ProductRequestDto requestDto,
                                  @AuthenticationPrincipal UserDetailsImpl userDetails) {
+
         // 로그인 되어 있는 회원 테이블의 ID
         Long userId = userDetails.getUser().getId();
 

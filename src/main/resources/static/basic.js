@@ -89,6 +89,7 @@ function showProduct(folderId = null) {
         }
     });
 }
+
 function openFolder(folderId) {
     $("button.product-folder").removeClass("folder-active");
     if (!folderId) {
@@ -98,10 +99,12 @@ function openFolder(folderId) {
     }
     showProduct(folderId);
 }
+
 // 폴더 추가 팝업
 function openAddFolderPopup() {
     $('#container2').addClass('active');
 }
+
 // 폴더 Input 추가
 function addFolderInput() {
     $('#folders-input').append(
@@ -114,11 +117,13 @@ function addFolderInput() {
 `
     );
 }
+
 function closeFolderInput(folder) {
     $(folder).prev().remove();
     $(folder).next().remove();
     $(folder).remove();
 }
+
 function addFolder() {
     const folderNames = $('.folderToAdd').toArray().map(input => input.value);
     folderNames.forEach(name => {
@@ -138,6 +143,14 @@ function addFolder() {
             $('#container2').removeClass('active');
             alert('성공적으로 등록되었습니다.');
             window.location.reload();
+        },
+        error: function (response) {
+// 서버에서 받은 에러 메시지를 노출
+            if (response.responseJSON && response.responseJSON.errorMessage) {
+                alert(response.responseJSON.errorMessage);
+            } else {
+                alert("알 수 없는 에러가 발생했습니다.");
+            }
         }
     })
 }
